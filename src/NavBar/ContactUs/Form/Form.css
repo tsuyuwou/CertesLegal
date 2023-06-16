@@ -1,0 +1,127 @@
+#contactForm {
+    width: 50%;
+}
+
+#contactForm ::selection {
+    background-color: rgba(76, 153, 255, 0.6);
+    color: white;
+}
+
+#contactForm > div {
+    background-color: rgba(0, 0, 0, 0.6);
+    font-size: 21.5px;
+    color: rgb(76, 153, 255);
+    margin: auto;
+    border: 1px solid transparent;
+    border-radius: 80px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@media (max-width: 1200px) {
+    #contactForm {
+      width: 100%;
+      height: max(calc((100vh - 90px) / 2), 440.5px);
+    }
+}
+
+#contactForm form > div {
+    display: flex;
+    color: black;
+    gap: 10px;
+}
+
+#contactForm input {
+    background-color: transparent;
+    color: rgb(76, 153, 255);
+    outline: none;
+    font-size: 20px;
+    padding: 10px;
+    width: 100%;
+    font-family: inherit;
+    border: 2px solid rgb(76, 153, 255);
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+#contactForm textarea {
+    background-color: transparent;
+    color: rgb(76, 153, 255);
+    outline: none;
+    font-size: 20px;
+    resize: none;
+    padding: 10px;
+    width: 100%;
+    font-family: inherit;
+    border: 2px solid rgb(76, 153, 255);
+    border-radius: 5px;
+    line-height: 45px;
+    padding-right: 25px;
+}
+
+#contactForm input::placeholder, 
+#contactForm textarea::placeholder {
+    color: rgb(76, 153, 255);
+}
+
+#contactForm input:-webkit-autofill, 
+#contactForm textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px black inset;
+    -webkit-text-fill-color: rgb(76, 153, 255);
+    caret-color: white;
+}
+
+#contactForm input:focus:-webkit-autofill, 
+#contactForm textarea:focus:-webkit-autofill {
+    -webkit-text-fill-color: white;
+}
+
+#contactForm input:-webkit-autofill::selection, 
+#contactForm textarea:-webkit-autofill::selection {
+    background-color: rgba(76, 153, 255, 0.6);
+    -webkit-text-fill-color: white;
+}
+
+#contactForm input:focus, 
+#contactForm textarea:focus {
+    border: 2px solid white;
+    color: white;
+}
+
+#contactForm input:focus::placeholder, 
+#contactForm textarea:focus::placeholder {
+    color: white;
+}
+
+#clearButton,
+#sendButton {
+    background-color: transparent;
+    color: rgb(76, 153, 255);
+    cursor: pointer;
+    outline: none;
+    border: none;
+    position: absolute;
+    top: 0;
+    border-radius: 5px;
+    padding: 10px;
+    border: 2px solid rgb(76, 153, 255);
+    width: 20%;
+}
+
+#sendButton {
+    right: 0;
+}
+
+#clearButton:focus-visible,
+#sendButton:focus-visible,
+#clearButton:active,
+#sendButton:active {
+    color: white;
+    border: 2px solid white;
+}
+
+#clearButton > svg,
+#sendButton > svg {
+    transform: translateY(3px);
+}

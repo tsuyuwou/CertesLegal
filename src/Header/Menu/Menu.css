@@ -1,0 +1,57 @@
+.menu {
+    position: relative;
+    width: 45px;
+    height: 40px;
+    margin-right: 1.5%;
+    transition-duration: 0.5s;
+}
+  
+.menu .icon {
+    transition-duration: 0.5s;
+    position: relative;
+    height: 8px;
+    width: 45px;
+    top: 16px;
+    background-color: lightblue;
+}
+  
+.menu .icon:before {
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 45px;
+    height: 8px;
+    background-color: lightblue;
+    content: "";
+    top: -16px;
+    left: 0px;
+}
+  
+.menu .icon:after {
+    transition-duration: 0.5s;
+    position: absolute;
+    width: 45px;
+    height: 8px;
+    background-color: lightblue;
+    content: "";
+    top: 16px;
+    left: 0px;
+}
+  
+.menu.open .icon {
+    transition-duration: 0.5s;
+    transform: rotateZ(270deg) translate(-5px, 8px);
+    width: 30px;
+}
+  
+.menu.open .icon:before {
+    transform: rotateZ(45deg) scaleX(0.75) translate(10px, 2px);
+}
+  
+.menu.open .icon:after {
+    transform: rotateZ(-45deg) scaleX(0.75) translate(10px, -2px);
+}
+  
+.menu:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}

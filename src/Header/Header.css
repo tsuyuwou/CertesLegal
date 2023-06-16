@@ -1,0 +1,35 @@
+#header {
+    display: flex;
+    align-items: center;
+    background-color: black;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-left: 1%;
+    padding-right: 1%;
+    justify-content: space-between;
+}
+
+#gavel {
+    width: 60px;
+    height: 45px;
+    margin-right: 20px;
+    border-radius: 10px;
+}
+
+#header > a {
+    color: lightblue;
+    font-size: 28px;
+    text-decoration: none;
+    margin-left: 1.5%;
+    display: flex;
+    align-items: center;
+    transition: all 0.5s;
+}
+
+#header > a:hover {
+    opacity: 0.6;
+}
+
+#header > a h1 {
+    margin: 0;
+}

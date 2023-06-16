@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Cabin';
+    background-color: white;
+    color: black;
+    text-align: center;
+    margin: 0;
+    visibility: hidden;
+    min-width: 500px;
+}
+
+.show {
+    visibility: visible;
+}

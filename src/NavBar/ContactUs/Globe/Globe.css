@@ -1,0 +1,62 @@
+#globeContainer {
+    width: 50%;
+}
+
+@media (max-width: 1200px) {
+    #globeContainer {
+      width: 100%;
+      height: max(calc((100vh - 90px) / 2), 440.5px);
+    }
+}
+
+#markerLabel {
+    width: 230px;
+    color: rgb(76, 153, 255);
+    font-family: Monospace;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.75);
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-left: -106px;
+    overflow: hidden;
+    padding-top: 3px;
+    padding-left: 3px;
+    padding-bottom: 6px;
+    border-top-right-radius: 14px;
+    text-align: left;
+}
+
+.hidden{
+    display: none;
+}
+
+.text {
+    margin-left: 4px;
+}
+
+.text ::selection {
+    background-color: rgba(76, 153, 255, 0.6);
+    color: white;
+}
+
+.text b:before {
+    content: "\25ce";
+}
+
+#closeButton{
+    position: absolute;
+    right: -1px;
+    top: -1px;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    border: 2.5px solid black;
+    border-radius: 14px;
+    background: black;
+    color: rgb(76, 153, 255);
+    cursor: pointer;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-bottom: 0px;
+}
