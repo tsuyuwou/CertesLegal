@@ -4,7 +4,7 @@
 
 Here's a walkthrough of the implemented features:
 
-[![Video Walkthrough](https://github.com/tsuyuwou/Lawaii/blob/649cec013e670ba3c5e1e6f2dd74232384f7edad/demo.png)](https://drive.google.com/file/d/1T5NQd3cBkiWdP4xHOKqWqo37--YnZENI/view?usp=sharing "Video Walkthrough")
+[![Video Walkthrough](https://github.com/tsuyuwou/certes-legal/blob/9a1644714ecc542b61dffc75dcd8ffe26fc104a8/demo.png)](https://drive.google.com/file/d/1T5NQd3cBkiWdP4xHOKqWqo37--YnZENI/view?usp=sharing "Video Walkthrough")
 
 ## Acknowledgements
 
