@@ -16,6 +16,7 @@ This project drew inspiration from the following projects:
 - [Sliding Image Track](https://codepen.io/Hyperplexed/pen/MWXBRBp): Inspired the sliding image track in the Our Team page.
 - [Smooth arrow animation](https://codepen.io/vlt_dev/pen/NWMNzpE): Inspired the arrows on the track in the Our Team page.
 - [The Hamburger Menu](https://codepen.io/mblode/pen/YzozOm): Inspired the hamburger menu on the header.
+- [next-netflix-tutorial] (https://github.com/AntonioErdeljac/next-netflix-tutorial): Inspired the login page.
 
 I would like to express my gratitude to the authors and contributors of these projects for their amazing work.
 

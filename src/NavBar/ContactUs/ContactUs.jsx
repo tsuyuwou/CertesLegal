@@ -39,6 +39,7 @@ const ContactUs = () => {
   const baseURL = import.meta.env.BASE_URL;
   let aspect = Math.max(window.innerWidth, 500) / Math.max(window.innerHeight - 89.5, 881.5);
   const [showCanvas, setShowCanvas] = useState(false);
+  const [tabIndex, setTabIndex] = useState();
 
   useEffect(() => {
     const starsContainer = document.getElementById("starsContainer");
@@ -64,10 +65,12 @@ const ContactUs = () => {
       setTimeout(() => {
         setShowCanvas(true);
       }, 500);
+      setTabIndex(0);
     }
     else {
       starsContainer.style.height = '0px';
       setShowCanvas(false);
+      setTabIndex(-1);
     }
   }, [location.pathname]);
 
@@ -80,7 +83,7 @@ const ContactUs = () => {
       ) : null}
       <div id="contactContainer" style={{display: 'flex', position: 'relative'}}>
         <Globe />
-        <Form />
+        <Form tabIndex={tabIndex}/>
       </div>
       <style jsx="true">{`
         @media (max-width: 1200px) {

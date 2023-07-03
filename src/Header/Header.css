@@ -7,6 +7,7 @@
     padding-left: 1%;
     padding-right: 1%;
     justify-content: space-between;
+    user-select: none;
 }
 
 #gavel {
