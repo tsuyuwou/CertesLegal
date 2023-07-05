@@ -1,15 +1,17 @@
 import { useEffect } from "react";
-import SivaRaman from '../../assets/SivaRaman.jpg';
 import TimmySusaiRajan from '../../assets/TimmySusaiRajan.jpg';
 import './OurTeam.css';
 
 const OurTeam = () => {
 
   const baseURL = import.meta.env.BASE_URL;
-  const team = [
-    {firstname: 'Siva', lastname: 'Raman', position: 'Managing Partner', qualifications: 'B.Com., B.A. LL.B', img: SivaRaman}, 
-    {firstname: 'Timmy', lastname: 'Susai Rajan', position: 'Chief Technology Officer', qualifications: 'Computer Engineering, B.S.', img: TimmySusaiRajan}
-  ];
+  const team = [...Array(8)].map(() => ({
+    firstname: 'Timmy', 
+    lastname: 'Susai Rajan', 
+    position: 'Chief Technology Officer', 
+    qualifications: 'Computer Engineering, B.S.', 
+    img: TimmySusaiRajan
+  }));
   let trackContainer, track, images, startPercentage, calcImgPos;
 
   useEffect(() => {

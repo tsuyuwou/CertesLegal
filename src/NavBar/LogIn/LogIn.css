@@ -3,3 +3,34 @@
 @import "tailwindcss/utilities";
 
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono');
+
+#bg {
+    background-position: 70%;
+}
+
+#bg-tint {
+    background: linear-gradient(to bottom, black, transparent);
+}
+
+#fg {
+    width: 372px;
+    font-family: 'Space Mono';
+    background: linear-gradient(to bottom, transparent, black);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#fg button {
+    font-family: 'Space Mono';
+}
+
+@media (max-width: 627px) {
+    #bg-tint {
+        background: linear-gradient(to bottom, black, rgba(0, 0, 0, 0.5), black);
+        backdrop-filter: blur(5px);
+    }
+
+    #fg {
+        background: transparent;
+    }
+}

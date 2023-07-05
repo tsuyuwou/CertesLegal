@@ -11,14 +11,14 @@ const Input = ({ id, onChange, value, label, type }) => {
           block
           rounded-md
           px-6
-          pt-4
-          pb-3
+          py-3
           w-full
           text-md
           text-white
           bg-black
           border-none
           outline-none
+          placeholder:select-none
         "
         style={{fontFamily: 'Space Mono'}}
       />
