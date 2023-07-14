@@ -1,0 +1,125 @@
+#pop-up {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: scroll;
+}
+
+#pop-up::-webkit-scrollbar {
+    display: none;
+}
+
+#job-info {
+    width: max(500px, 100vw);
+    height: max(551px, 100%);
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    display: none;
+}
+
+#job-info-card {
+    width: 475px;
+    max-height: 526px;
+    margin: auto;
+    background-color: rgba(37, 99, 235, 0.4);
+    backdrop-filter: blur(5px);
+    border-radius: 39.5px;
+}
+
+#job-info-card > div {
+    box-sizing: border-box;
+    padding: 25px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+#job-info-card > div > div:last-of-type {
+    margin-top: 12.5px;
+    overflow: scroll;
+    padding-left: 5px;
+    padding-right: 5px;
+    max-height: 331.5px;
+}
+
+#job-info-card > div > div:last-of-type::-webkit-scrollbar {
+    display: none;
+}
+
+#job-info-card > div > div > div:first-of-type {
+    display: flex;
+}
+
+#job-info-card > div > div > div:first-of-type > div:first-of-type {
+    width: 375px;
+    display: flex;
+}
+
+#job-info-card > div > div > div:first-of-type > div div {
+    font-size: larger;
+    margin: auto;
+    margin-left: 0;
+    overflow: scroll;
+    max-height: 47px;
+}
+
+#job-info-card > div > div > div:first-of-type > div div::-webkit-scrollbar {
+    display: none;
+}
+
+#job-info-card > div > div > div:first-of-type > div:last-of-type {
+    display: flex;
+    flex-grow: 1;
+}
+
+#job-info-card > div > div > div:first-of-type svg {
+    margin: auto;
+    margin-right: 0;
+    margin-top: 0;
+    cursor: pointer;
+    background-color: rgb(37, 99, 235);
+    color: white;
+    border-radius: 5px;
+}
+
+#job-info-card > div > div > div:last-of-type {
+    display: grid;
+    grid-template-columns: 0.805fr 1.195fr 1fr;
+    margin-top: 10px;
+}
+
+#job-info-card > div > div > div:last-of-type > div {
+    background-color: rgba(37, 99, 235, 0.4);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+}
+
+#job-info-card > div > div > div:last-of-type > div:not(:last-of-type) {
+    margin-right: 10px;
+}
+
+#job-info-card > div > div > div:last-of-type > div div {
+    margin: auto;
+}
+
+#job-info-card > div > div > div:last-of-type svg {
+    transform: translateY(2.25px);
+    margin-right: 5px;
+}
+
+#job-info-card button {
+    background-color: rgb(37, 99, 235);
+    color: white;
+    margin-top: 15px;
+    border-radius: 5px;
+    width: 100%;
+    height: 30px;
+    font-size: medium;
+    border: none;
+    cursor: pointer;
+}

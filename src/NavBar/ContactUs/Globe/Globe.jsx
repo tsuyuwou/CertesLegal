@@ -90,7 +90,6 @@ const Globe = () => {
     );
     scene.add(globe);
 
-    const markerCount = 2;
     let markerInfo = [];
     let gMarker = new THREE.CircleGeometry(0.5);
     let mMarker = new THREE.MeshBasicMaterial({
@@ -120,13 +119,15 @@ const Globe = () => {
       }
     });
     mMarker.defines = { USE_UV: " " }; // needed to be set to be able to work with UVs
-    let markers = new THREE.InstancedMesh(gMarker, mMarker, markerCount);
-    let dummy = new THREE.Object3D();
     let locations = [
       {city: 'Chennai', latitude: 13.0827, longitude: 80.2707, phone: '+91-86104-07904', address: '42/47, CP Ramaswamy Road, Abhiramapuram, Chennai - 600018'},
-      {city: 'New Delhi', latitude: 28.7041, longitude: 77.1025, phone: '+91-86104-07904', address: null}
+      {city: 'New Delhi', latitude: 28.7041, longitude: 77.1025, phone: '+91-86104-07904', address: null},
+      {city: 'Mumbai', latitude: 19.0760, longitude: 72.8777, phone: '+91-86104-07904', address: null},
+      {city: 'Kolkata', latitude: 22.5726, longitude: 88.3639, phone: '+91-86104-07904', address: null}
     ];
-    for (let i = 0; i < markerCount; i++) {
+    let markers = new THREE.InstancedMesh(gMarker, mMarker, locations.length);
+    let dummy = new THREE.Object3D();
+    for (let i = 0; i < locations.length; i++) {
       dummy.position.setFromSphericalCoords(1, convertLat(locations[i].latitude), convertLon(locations[i].longitude)).setLength(rad + 0.1);
       dummy.lookAt(dummy.position.clone().setLength(rad + 1));
       dummy.updateMatrix();

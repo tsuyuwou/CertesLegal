@@ -9,15 +9,7 @@ const NavBar = () => {
     { name: 'Home', path: '/' },
     { name: 'Our Team', path: '/our-team' },
     { name: 'Contact Us', path: '/contact-us' },
-    {
-    name: 'Careers', path: '/careers',
-    subMenu: [
-      { name: 'Civil Law', path: '/careers/civil-law' }, 
-      { name: 'Administrative Law', path: '/careers/administrative-law' }, 
-      { name: 'Digital Marketing', path: '/careers/digital-marketing' }, 
-      { name: 'Software Development', path: '/careers/software-development' }
-      ],
-    },
+    { name: 'Jobs', path: '/jobs' },
     { name: 'Log In', path: '/log-in' }
   ];
   const baseURL = import.meta.env.BASE_URL;
@@ -49,16 +41,9 @@ const NavBar = () => {
       content.style.transition = 'transform 0.5s';
       navBar.style.transition = 'transform 0.5s';
       menu.classList.remove('open');
-      if (window.innerWidth > 845) {
-        navBar.style.transform = `translateY(-171px)`;
-        starsContainer.style.transform = `translateY(-171px)`;
-        content.style.transform = `translateY(-171px)`;
-      }
-      else {
-        navBar.style.transform = `translateY(-211px)`;
-        starsContainer.style.transform = `translateY(-211px)`;
-        content.style.transform = `translateY(-211px)`;
-      }
+      navBar.style.transform = `translateY(-90px)`;
+      starsContainer.style.transform = `translateY(-90px)`;
+      content.style.transform = `translateY(-90px)`;
       navBar.style.zIndex = '-1';
     }
   }, [location.pathname]);
@@ -68,36 +53,9 @@ const NavBar = () => {
       <nav>
         <ul id="main">
           {buttons.map(button => {
-            const handleMouseEnter = () => {
-              if (button.name === "Careers") {
-                document.querySelector('.drop').scrollTop = 0;
-              }
-            };
-
-            const handleClick = (event) => {
-              if (event.target === event.currentTarget) {
-                navigate(button.path);
-              }
-            };
-
             return (
-              <li key={button.name} onClick={handleClick} onMouseEnter={handleMouseEnter}>
+              <li key={button.name} onClick={() => navigate(button.path)}>
                 {button.name}
-                {button.subMenu && (
-                  <ul className="drop">
-                    <div>
-                      {button.subMenu.map(sub => {
-                        return (
-                          <li key={sub.name} onClick={() => navigate(sub.path)}>
-                            <div>
-                              {sub.name}
-                            </div>
-                          </li>
-                        );
-                      })}
-                    </div>
-                  </ul>
-                )}
               </li>
             );
           })}

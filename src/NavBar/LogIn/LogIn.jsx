@@ -84,7 +84,7 @@ const LogIn = () => {
               {variant === 'Sign In' ? 'New to our services?' : 'Already have an account?'} &nbsp;
             </p>
             <div className="group flex-grow rounded-md" onClick={toggleVariant}>
-              <button className="bg-blue-600 text-white rounded-md outline-none border-none group-hover:bg-blue-700 transition-transform focus:scale-90 select-none cursor-pointer text-base w-full">
+              <button className="bg-blue-600 text-white rounded-md outline-none border-none group-hover:bg-blue-700 transition-transform focus:scale-90 select-none cursor-pointer text-base w-full pb-1">
                 {variant === 'Sign In' ? (
                   <div className="flex justify-center items-center">
                     <b>Get Started</b> &nbsp;

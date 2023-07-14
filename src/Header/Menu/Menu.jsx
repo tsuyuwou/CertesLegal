@@ -11,16 +11,9 @@ const Menu = () => {
     let timeoutID;
 
     function transform() {
-      if (window.innerWidth > 845) {
-        navBar.style.transform = `translateY(-171px)`;
-        starsContainer.style.transform = `translateY(-171px)`;
-        content.style.transform = `translateY(-171px)`;
-      }
-      else {
-        navBar.style.transform = `translateY(-211px)`;
-        starsContainer.style.transform = `translateY(-211px)`;
-        content.style.transform = `translateY(-211px)`;
-      }
+      navBar.style.transform = `translateY(-90px)`;
+      starsContainer.style.transform = `translateY(-90px)`;
+      content.style.transform = `translateY(-90px)`;
       navBar.style.zIndex = '-1';
     }
     transform();
