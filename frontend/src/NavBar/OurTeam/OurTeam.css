@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono');
+
+#track-container {
+    overflow: hidden;
+    background-color: black;
+}
+
+#track-container > div {
+    position: relative;
+    height: 600px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#image-track {
+    display: flex;
+    gap: 50px;
+    position: absolute;
+    left: 50%;
+    user-select: none;
+}
+
+.screen {
+    width: 400px;
+    display: flex;
+    position: relative;
+}
+
+.screen > .image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: 100% center;
+    position: absolute;
+    transition: all 0.5s;
+}
+
+.screen:hover > .image {
+    opacity: 0.2;
+}
+
+.screen > .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.5s;
+    text-align: center;
+}
+
+.screen:hover > .content {
+    opacity: 1;
+}
+
+.screen > .content > .name {
+    font-family: "Space Mono";
+    color: white;
+    font-size: 30px;
+}
+
+.screen > .content > .position {
+    font-family: "Space Mono";
+    color: white;
+    font-size: 20px;
+    padding-top: 30px;
+}
+
+.screen > .content > .qualifications {
+    font-family: "Space Mono";
+    color: white;
+    font-size: 15px;
+    padding-top: 30px;
+}
+
+.left-arrow {
+    width: 400px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-arrow {
+    width: 400px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(180deg);
+}
+
+.left-arrow span, 
+.right-arrow span {
+    width: 150px;
+    height: 150px;
+    border-bottom: 5px solid white;
+    border-left: 5px solid white;
+    margin: -55px;
+    transform: rotate(45deg) translate(80px, -80px);
+    animation: animate 3.6s infinite ease-in-out;
+}
+
+.left-arrow span:nth-child(1), 
+.right-arrow span:nth-child(1) {
+    animation-delay: -2.7s;
+}
+
+.left-arrow span:nth-child(2),
+.right-arrow span:nth-child(2) {
+    animation-delay: -3s;
+}
+
+.left-arrow span:nth-child(3), 
+.right-arrow span:nth-child(3) {
+    animation-delay: -3.3s;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(45deg) translate(80px, -80px);
+    }
+    50% {
+        transform: rotate(45deg) translate(-5px, 5px);
+    }
+}
