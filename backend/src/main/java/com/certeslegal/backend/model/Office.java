@@ -2,7 +2,6 @@ package com.certeslegal.backend.model;
 
 import lombok.*;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor
@@ -16,8 +15,7 @@ public class Office {
     @Column(name = "office_id")
     private Long id;
 
-    @Column(name = "city_name")
-    @NotBlank
+    @Column(name = "city_name", nullable = false)
     private String cityName;
 
     @Column(name = "city_latitude", nullable = false)

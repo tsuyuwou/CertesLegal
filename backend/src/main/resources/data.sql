@@ -23,3 +23,10 @@ INSERT INTO employee (first_name, last_name, position, qualifications)
 VALUES ('Timmy', 'Susai Rajan', 'Chief Technology Officer', 'Computer Engineering, B.S.');
 INSERT INTO employee (first_name, last_name, position, qualifications)
 VALUES ('Timmy', 'Susai Rajan', 'Chief Technology Officer', 'Computer Engineering, B.S.');
+
+INSERT INTO job (title, type, domain, location, description)
+VALUES ('Administrative Law Attorney', 'FULLTIME', 'ADMINISTRATIVE_LAW', 'NEW_DELHI', 'This is a dummy job description.');
+INSERT INTO job (title, type, domain, location, description)
+VALUES ('Government Relations Specialist', 'FULLTIME', 'ADMINISTRATIVE_LAW', 'NEW_DELHI', 'This is a dummy job description.');
+INSERT INTO job (title, type, domain, location, description)
+VALUES ('Senior Vice President and Managing Partner of Litigation and Dispute Resolution Department', 'FULLTIME', 'EXECUTIVE', 'CHENNAI', 'This is a dummy job description.');

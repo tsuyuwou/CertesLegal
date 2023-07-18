@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import JobService from '../../services/JobService';
 import './Jobs.css';
 
 const Arrow = () => {
@@ -13,24 +14,38 @@ const Arrow = () => {
 
 const Jobs = ({ setJob }) => {
 
-  const filters = [
-    {filter: 'Type', options: ['Full-time', 'Part-time', 'Internship', 'Seasonal', 'Temporary', '— —']},
-    {filter: 'Domain', options: ['Civil Law', 'Administrative Law', 'Digital Marketing', 'IT', 'Executive', '— —']},
-    {filter: 'Location', options: ['Chennai, India', 'New Delhi, India', 'Mumbai, India', 'Kolkata, India', 'Remote (India)', '— —']}
-  ];
+  const [jobs, setJobs] = useState([]);
+  const [selections, setSelections] = useState({});
+  const [filters, setFilters] = useState({});
+  const clearSelections = () => {
+    return Object.fromEntries(Object.keys(filters).map(key => [key, '— —']));
+  };
 
-  const jobs = [
-    {title: 'Administrative Law Attorney', type: 'Full-time', domain: 'Administrative Law', location: 'New Delhi, India', description: 'This is a dummy job description.'},
-    {title: 'Government Relations Specialist', type: 'Full-time', domain: 'Administrative Law', location: 'New Delhi, India', description: 'This is a dummy job description.'},
-    {title: 'Senior Vice President and Managing Partner of Litigation and Dispute Resolution Department', type: 'Full-time', domain: 'Executive', location: 'Chennai, India', description: 'This is a dummy job description.'}
-  ];
+  useEffect(() => {
+    JobService.getFilters().then(({ data }) => {
+      for (const value of Object.values(data)) {
+        value.push('— —');
+      }
+      setFilters(data);
+    }).catch(error => {
+      console.error('Error fetching filters:', error);
+    });
 
-  const [selections, setSelections] = useState(Array(filters.length).fill('— —'));
+    JobService.getJobs({}).then(res => {
+      setJobs(res.data);
+    }).catch(error => {
+      console.error('Error fetching jobs:', error);
+    });
+  }, []);
+
+  useEffect(() => {
+    setSelections(clearSelections());
+  }, [filters]);
 
   useEffect(() => {
     const handleResize = () => {
       const jobsContainer = document.getElementById('jobs-container');
-      const numJobCards = Math.max(2, Math.min(jobs.length, Math.floor((0.95 * window.innerWidth + 12.5) / 243.75)));
+      const numJobCards = Math.min(4, Math.floor((0.95 * window.innerWidth + 12.5) / 243.75));
       jobsContainer.style.gridTemplateColumns = `repeat(${numJobCards}, 1fr)`;
       jobsContainer.style.width = `${numJobCards * 243.75 - 12.5}px`;
       document.getElementById('search-bar').style.width = `${jobsContainer.clientWidth}px`;
@@ -38,27 +53,25 @@ const Jobs = ({ setJob }) => {
     handleResize();
     window.onresize = handleResize;
     return () => window.onresize = null;
-  }, []);
+  }, [jobs]);
 
   return (
     <div id="job-search">
       <div id="search-bar">
         <ul id="filters">
-          {filters.map((filter, idx) => {
+          {Object.entries(filters).map(([filter, options]) => {
             return (
-              <li key={idx} onMouseEnter={e => e.currentTarget.querySelector('.drop').scrollTop = 0}>
-                {filter.filter}
+              <li key={filter} onMouseEnter={e => e.currentTarget.querySelector('.drop').scrollTop = 0}>
+                {filter.replace(/\b\w/g, match => match.toUpperCase())}
                 <hr style={{ border: 'none', height: '2px', backgroundColor: 'white' }} />
-                {selections[idx]}
+                {selections[filter]}
                 <ul className="drop">
                   <div>
-                    {filter.options.map(option => {
+                    {options.map(option => {
                       return (
-                        <li key={option} onClick={() => {
-                          const newSelections = [...selections];
-                          newSelections[idx] = option;
-                          setSelections(newSelections);
-                        }}>
+                        <li key={option} onClick={
+                          () => setSelections(prevState => ({...prevState, [filter]: option}))
+                        }>
                           {option}
                         </li>
                       );
@@ -73,13 +86,26 @@ const Jobs = ({ setJob }) => {
           <Arrow />
         </ul>
         <div>
-          <div style={{height: '77px', borderBottom: '2px solid white'}} onClick={() => setSelections(Array(filters.length).fill('— —'))}>
+          <div style={{height: '77px', borderBottom: '2px solid white'}} onClick={() => {
+            JobService.getJobs({}).then(res => {
+              setJobs(res.data);
+            }).catch(error => {
+              console.error('Error fetching jobs:', error);
+            });
+            setSelections(clearSelections());
+          }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
               <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
               <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
             </svg>
           </div>
-          <div style={{height: '122.5px'}}>
+          <div style={{height: '122.5px'}} onClick={() => {
+            JobService.getJobs({...selections}).then(res => {
+              setJobs(res.data);
+            }).catch(error => {
+              console.error('Error fetching jobs:', error);
+            });
+          }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
             </svg>
@@ -123,7 +149,7 @@ const Jobs = ({ setJob }) => {
                       const jobInfo = popUp.firstChild;
                       jobInfo.style.display = 'flex';
                       setTimeout(() => jobInfo.style.height = `max(calc(${getComputedStyle(jobInfo.firstChild).height} + 25px), 100vh)`, 0);
-                      document.body.style.overflow = 'hidden';
+                      document.body.style.overflowY = 'hidden';
                     }}>Learn More</button>
                     <button>Apply Now</button>
                   </div>

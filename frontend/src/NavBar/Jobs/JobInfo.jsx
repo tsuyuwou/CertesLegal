@@ -9,10 +9,14 @@ const JobInfo = ({ job }) => {
       if (window.getComputedStyle(popUp).zIndex == 10) {
         popUp.style.zIndex = -1;
         popUp.firstChild.style.display = 'none';
-        document.body.style.overflow = 'scroll';
+        document.body.style.overflowY = 'scroll';
       }
     };
   }, []);
+
+  useEffect(() => {
+    document.getElementById('description').innerText = job.description?.replace(/\t/g, '\u00A0'.repeat(4));
+  }, [job]);
 
   return (
     <div id="pop-up">
@@ -33,7 +37,7 @@ const JobInfo = ({ job }) => {
                       const popUp = document.getElementById('pop-up');
                       popUp.style.zIndex = -1;
                       popUp.firstChild.style.display = 'none';
-                      document.body.style.overflow = 'scroll';
+                      document.body.style.overflowY = 'scroll';
                     }}
                   >
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
@@ -69,7 +73,7 @@ const JobInfo = ({ job }) => {
                 </div>
               </div>
             </div>
-            <div>{job.description}</div>
+            <div id='description'></div>
             <button>Apply Now</button>
           </div>
         </div>

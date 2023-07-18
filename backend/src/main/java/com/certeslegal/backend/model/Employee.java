@@ -2,7 +2,6 @@ package com.certeslegal.backend.model;
 
 import lombok.*;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor
@@ -16,16 +15,13 @@ public class Employee {
     @Column(name = "employee_id")
     private Long id;
 
-    @Column(name = "first_name", length = 20)
-    @NotBlank
+    @Column(name = "first_name", length = 20, nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", length = 20)
-    @NotBlank
+    @Column(name = "last_name", length = 20, nullable = false)
     private String lastName;
 
-    @Column(length = 30)
-    @NotBlank
+    @Column(length = 30, nullable = false)
     private String position;
 
     @Column(length = 40)

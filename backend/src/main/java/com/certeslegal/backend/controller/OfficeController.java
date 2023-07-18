@@ -26,7 +26,7 @@ public class OfficeController {
     }
     
     // get all offices
-    @GetMapping("offices")
+    @GetMapping("/offices")
     @ResponseStatus(HttpStatus.OK)
     public List<Office> getAllOffices() {
         return officeRepository.findAll();

@@ -26,7 +26,7 @@ public class EmployeeController {
     }
     
     // get all employees
-    @GetMapping("employees")
+    @GetMapping("/employees")
     @ResponseStatus(HttpStatus.OK)
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();

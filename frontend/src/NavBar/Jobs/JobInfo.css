@@ -37,7 +37,7 @@
     user-select: none;
 }
 
-#job-info-card > div > div:last-of-type {
+#description {
     margin-top: 12.5px;
     overflow: scroll;
     padding-left: 5px;
