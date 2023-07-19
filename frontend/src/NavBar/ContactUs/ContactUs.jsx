@@ -5,7 +5,7 @@ import { inSphere } from "maath/random/dist/maath-random.esm";
 import Globe from "./Globe/Globe.jsx";
 import Form from './Form/Form.jsx';
 
-const Stars = (props) => {
+const Stars = () => {
   
   const ref = useRef();
   const { camera } = useThree();
@@ -21,7 +21,7 @@ const Stars = (props) => {
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled {...props}>
+      <Points ref={ref} positions={sphere} stride={3} frustumCulled>
         <PointMaterial
           transparent
           color='#f272c8'

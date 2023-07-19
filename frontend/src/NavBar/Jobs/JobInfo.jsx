@@ -9,6 +9,7 @@ const JobInfo = ({ job }) => {
       if (window.getComputedStyle(popUp).zIndex == 10) {
         popUp.style.zIndex = -1;
         popUp.firstChild.style.display = 'none';
+        document.getElementById('content').style.userSelect = 'auto';
         document.body.style.overflowY = 'scroll';
       }
     };
@@ -37,6 +38,7 @@ const JobInfo = ({ job }) => {
                       const popUp = document.getElementById('pop-up');
                       popUp.style.zIndex = -1;
                       popUp.firstChild.style.display = 'none';
+                      document.getElementById('content').style.userSelect = 'auto';
                       document.body.style.overflowY = 'scroll';
                     }}
                   >
@@ -44,7 +46,7 @@ const JobInfo = ({ job }) => {
                   </svg>
                 </div>
               </div>
-              <div>
+              <div onClick={() => window.getSelection().removeAllRanges()}>
                 <div>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-clock" viewBox="0 0 16 16">
@@ -74,7 +76,7 @@ const JobInfo = ({ job }) => {
               </div>
             </div>
             <div id='description'></div>
-            <button>Apply Now</button>
+            <button onClick={() => window.getSelection().removeAllRanges()}>Apply Now</button>
           </div>
         </div>
       </div>

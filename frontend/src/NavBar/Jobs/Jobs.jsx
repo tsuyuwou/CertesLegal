@@ -58,59 +58,61 @@ const Jobs = ({ setJob }) => {
   return (
     <div id="job-search">
       <div id="search-bar">
-        <ul id="filters">
-          {Object.entries(filters).map(([filter, options]) => {
-            return (
-              <li key={filter} onMouseEnter={e => e.currentTarget.querySelector('.drop').scrollTop = 0}>
-                {filter.replace(/\b\w/g, match => match.toUpperCase())}
-                <hr style={{ border: 'none', height: '2px', backgroundColor: 'white' }} />
-                {selections[filter]}
-                <ul className="drop">
-                  <div>
-                    {options.map(option => {
-                      return (
-                        <li key={option} onClick={
-                          () => setSelections(prevState => ({...prevState, [filter]: option}))
-                        }>
-                          {option}
-                        </li>
-                      );
-                    })}
-                  </div>
-                </ul>
-              </li>
-            );
-          })}
-          <Arrow />
-          <Arrow />
-          <Arrow />
-        </ul>
-        <div>
-          <div style={{height: '77px', borderBottom: '2px solid white'}} onClick={() => {
-            JobService.getJobs({}).then(res => {
-              setJobs(res.data);
-            }).catch(error => {
-              console.error('Error fetching jobs:', error);
-            });
-            setSelections(clearSelections());
-          }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
-              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
-            </svg>
+        {Object.keys(filters).length === 0 ? null : (<>
+          <ul id="filters" onClick={() => window.getSelection().removeAllRanges()}>
+            {Object.entries(filters).map(([filter, options]) => {
+              return (
+                <li key={filter} onMouseEnter={e => e.currentTarget.querySelector('.drop').scrollTop = 0}>
+                  {filter.replace(/\b\w/g, match => match.toUpperCase())}
+                  <hr style={{ border: 'none', height: '2px', backgroundColor: 'white' }} />
+                  {selections[filter]}
+                  <ul className="drop">
+                    <div>
+                      {options.map(option => {
+                        return (
+                          <li key={option} onClick={
+                            () => setSelections(prevState => ({...prevState, [filter]: option}))
+                          }>
+                            {option}
+                          </li>
+                        );
+                      })}
+                    </div>
+                  </ul>
+                </li>
+              );
+            })}
+            <Arrow />
+            <Arrow />
+            <Arrow />
+          </ul>
+          <div>
+            <div style={{height: '77px', borderBottom: '2px solid white'}} onClick={() => {
+              JobService.getJobs({}).then(res => {
+                setJobs(res.data);
+              }).catch(error => {
+                console.error('Error fetching jobs:', error);
+              });
+              setSelections(clearSelections());
+            }}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+              </svg>
+            </div>
+            <div style={{height: '122.5px'}} onClick={() => {
+              JobService.getJobs({...selections}).then(res => {
+                setJobs(res.data);
+              }).catch(error => {
+                console.error('Error fetching jobs:', error);
+              });
+            }}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg>
+            </div>
           </div>
-          <div style={{height: '122.5px'}} onClick={() => {
-            JobService.getJobs({...selections}).then(res => {
-              setJobs(res.data);
-            }).catch(error => {
-              console.error('Error fetching jobs:', error);
-            });
-          }}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-            </svg>
-          </div>
-        </div>
+        </>)}
       </div>
       <div id="jobs-container">
         {jobs.map((job, idx) => {
@@ -118,7 +120,7 @@ const Jobs = ({ setJob }) => {
             <div key={idx} className="job-card">
               <div>
                 <div>{job.title}</div>
-                <div>
+                <div onClick={() => window.getSelection().removeAllRanges()}>
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-clock" viewBox="0 0 16 16">
                       <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
@@ -149,6 +151,8 @@ const Jobs = ({ setJob }) => {
                       const jobInfo = popUp.firstChild;
                       jobInfo.style.display = 'flex';
                       setTimeout(() => jobInfo.style.height = `max(calc(${getComputedStyle(jobInfo.firstChild).height} + 25px), 100vh)`, 0);
+                      window.getSelection().removeAllRanges();
+                      document.getElementById('content').style.userSelect = 'none';
                       document.body.style.overflowY = 'hidden';
                     }}>Learn More</button>
                     <button>Apply Now</button>

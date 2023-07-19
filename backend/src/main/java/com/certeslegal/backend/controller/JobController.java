@@ -50,6 +50,7 @@ public class JobController {
 
     // get filters
     @GetMapping("/jobs/filters")
+    @ResponseStatus(HttpStatus.OK)
     public Filters getFilters() {
         Filters filters = new Filters();
         filters.setType(Arrays.stream(Type.values()).map(Type::getLabel).collect(Collectors.toList()));

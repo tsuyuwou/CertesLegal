@@ -95,35 +95,37 @@ const OurTeam = () => {
     <div id="track-container">
       <div>
         <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0" data-percentage="0">
-          <div className="left-arrow">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-          </div>
-          {employees.map(employee => (
-            <div key={employee.id} className="screen">
-              <div className="image" style={{backgroundImage: `url(/src/assets/employees/${(employee.firstName + employee.lastName).replace(/\s/g, '')}.jpg)`}}></div>
-              <div className="content">
-                {employee.firstName.length + employee.lastName.length + 1 <= 20 ? (
-                    <span className="name">{`${employee.firstName} ${employee.lastName}`}</span>
-                ) : (
-                  <>
-                    <span className="name">{`${employee.firstName}`}</span>
-                    <span className="name">{`${employee.lastName}`}</span>
-                  </>
-                )}
-                <span className="position">{`${employee.position}`}</span>
-                {employee.qualifications ? <span className="qualifications">{`${employee.qualifications}`}</span> : null}
-              </div>
+          {employees.length === 0 ? null : (<>
+            <div className="left-arrow">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
             </div>
-          ))}
-          <div className="right-arrow">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-          </div>
+            {employees.map(employee => (
+              <div key={employee.id} className="screen">
+                <div className="image" style={{backgroundImage: `url(/src/assets/employees/${(employee.firstName + employee.lastName).replace(/\s/g, '')}.jpg)`}}></div>
+                <div className="content">
+                  {employee.firstName.length + employee.lastName.length + 1 <= 20 ? (
+                      <span className="name">{`${employee.firstName} ${employee.lastName}`}</span>
+                  ) : (
+                    <>
+                      <span className="name">{`${employee.firstName}`}</span>
+                      <span className="name">{`${employee.lastName}`}</span>
+                    </>
+                  )}
+                  <span className="position">{`${employee.position}`}</span>
+                  {employee.qualifications ? <span className="qualifications">{`${employee.qualifications}`}</span> : null}
+                </div>
+              </div>
+            ))}
+            <div className="right-arrow">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+          </>)}
         </div>
       </div>
     </div>

@@ -14,8 +14,7 @@ This project drew inspiration from the following projects:
 - [Globe of Points: Markers + Label](https://codepen.io/prisoner849/pen/oNopjyb): Inspired the markers and label on the globe in the Contact Us page.
 - [project_3D_developer_portfolio](https://github.com/adrianhajdin/project_3D_developer_portfolio): Inspired the form and background stars in the Contact Us page.
 - [Sliding Image Track](https://codepen.io/Hyperplexed/pen/MWXBRBp): Inspired the sliding image track in the Our Team page.
-- [Smooth arrow animation](https://codepen.io/vlt_dev/pen/NWMNzpE): Inspired the arrows on the track in the Our Team page.
-- [The Hamburger Menu](https://codepen.io/mblode/pen/YzozOm): Inspired the hamburger menu on the header.
+- [The Hamburger Menu](https://codepen.io/mblode/pen/YzozOm): Inspired the hamburger menu icon on the header.
 - [next-netflix-tutorial](https://github.com/AntonioErdeljac/next-netflix-tutorial): Inspired the login page.
 
 I would like to express my gratitude to the authors and contributors of these projects for their amazing work.
