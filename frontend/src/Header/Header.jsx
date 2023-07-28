@@ -12,6 +12,9 @@ const Header = ({ error = false }) => {
     window.addEventListener('resize', function() {
       root.style.height = `${window.innerHeight}px`;
     });
+    document.body.onscroll = () => {
+      document.getElementById('pop-up').scrollLeft = document.documentElement.scrollLeft;
+    };
   }, []);
 
   return (

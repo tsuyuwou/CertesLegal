@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import JobService from '../../services/JobService';
+import UserService from '../../services/UserService';
 import './Jobs.css';
 
 const Arrow = () => {
@@ -12,13 +14,14 @@ const Arrow = () => {
   );
 };
 
-const Jobs = ({ setJob }) => {
+const Jobs = ({ setJob, user }) => {
 
+  const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
   const [selections, setSelections] = useState({});
   const [filters, setFilters] = useState({});
   const clearSelections = () => {
-    return Object.fromEntries(Object.keys(filters).map(key => [key, '— —']));
+    setSelections(Object.fromEntries(Object.keys(filters).map(key => [key, '— —'])));
   };
 
   useEffect(() => {
@@ -38,14 +41,12 @@ const Jobs = ({ setJob }) => {
     });
   }, []);
 
-  useEffect(() => {
-    setSelections(clearSelections());
-  }, [filters]);
+  useEffect(clearSelections, [filters]);
 
   useEffect(() => {
     const handleResize = () => {
       const jobsContainer = document.getElementById('jobs-container');
-      const numJobCards = Math.min(4, Math.floor((0.95 * window.innerWidth + 12.5) / 243.75));
+      const numJobCards = Math.max(2, Math.min(4, Math.floor((0.95 * window.innerWidth + 12.5) / 243.75)));
       jobsContainer.style.gridTemplateColumns = `repeat(${numJobCards}, 1fr)`;
       jobsContainer.style.width = `${numJobCards * 243.75 - 12.5}px`;
       document.getElementById('search-bar').style.width = `${jobsContainer.clientWidth}px`;
@@ -93,7 +94,7 @@ const Jobs = ({ setJob }) => {
               }).catch(error => {
                 console.error('Error fetching jobs:', error);
               });
-              setSelections(clearSelections());
+              clearSelections();
             }}>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
@@ -149,13 +150,24 @@ const Jobs = ({ setJob }) => {
                       const popUp = document.getElementById('pop-up');
                       popUp.style.zIndex = 10;
                       const jobInfo = popUp.firstChild;
-                      jobInfo.style.display = 'flex';
+                      jobInfo.style.visibility = 'visible';
                       setTimeout(() => jobInfo.style.height = `max(calc(${getComputedStyle(jobInfo.firstChild).height} + 25px), 100vh)`, 0);
                       window.getSelection().removeAllRanges();
                       document.getElementById('content').style.userSelect = 'none';
                       document.body.style.overflowY = 'hidden';
                     }}>Learn More</button>
-                    <button>Apply Now</button>
+                    <button onClick={() => {
+                      if (user) {
+                        UserService.applyToJob(user.id, job.id).then(res => {
+                          console.log(res);
+                        }).catch(error => {
+                          console.error(error);
+                        });
+                      }
+                      else {
+                        navigate('/log-in');
+                      }
+                    }}>Apply Now</button>
                   </div>
                 </div>
               </div>

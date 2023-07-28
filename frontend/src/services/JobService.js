@@ -10,7 +10,7 @@ class JobService {
                 delete params[key];
             }
         }
-        return axios.get(JOB_API_BASE_URL, {params});
+        return axios.get(JOB_API_BASE_URL, { params });
     }
 
     getFilters() {

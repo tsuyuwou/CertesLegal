@@ -1,4 +1,4 @@
-const Input = ({ id, onChange, value, label, type }) => {
+const Input = ({ id, onChange, value, placeholder, type, pattern, maxLength, isRequired, autoFocus }) => {
   return (
     <div className="flex">
       <input
@@ -6,7 +6,11 @@ const Input = ({ id, onChange, value, label, type }) => {
         type={type}
         value={value}
         onChange={onChange}
-        placeholder={' ' + label}
+        placeholder={placeholder}
+        pattern={pattern}
+        maxLength={maxLength}
+        required={isRequired}
+        autoFocus={autoFocus}
         className="
           block
           rounded-md

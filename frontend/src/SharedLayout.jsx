@@ -3,16 +3,16 @@ import Header from './Header/Header.jsx';
 import NavBar from './NavBar/NavBar.jsx';
 import JobInfo from './NavBar/Jobs/JobInfo.jsx';
 
-const SharedLayout = ({ job }) => {
+const SharedLayout = ({ job, user }) => {
 
   return (
     <>
       <Header />
-      <NavBar />
+      <NavBar user={user} />
       <div id="content">
         <Outlet />
       </div>
-      <JobInfo job={job} />
+      <JobInfo job={job} user={user} />
     </>
   );
 };

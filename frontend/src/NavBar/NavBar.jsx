@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import ContactUs from './ContactUs/ContactUs.jsx';
 import './NavBar.css';
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
   
   const buttons = [
     { name: 'Home', path: '/' },
     { name: 'Our Team', path: '/our-team' },
     { name: 'Contact Us', path: '/contact-us' },
     { name: 'Jobs', path: '/jobs' },
-    { name: 'Log In', path: '/log-in' }
+    user ? { name: 'My Account', path: '/account' } : { name: 'Log In', path: '/log-in' }
   ];
   const baseURL = import.meta.env.BASE_URL;
   const markerRef = useRef(null);
@@ -49,13 +49,11 @@ const NavBar = () => {
     <>
       <nav>
         <ul id="main">
-          {buttons.map(button => {
-            return (
-              <li key={button.name} onClick={() => navigate(button.path)}>
-                {button.name}
-              </li>
-            );
-          })}
+          {buttons.map(button => (
+            <li key={button.name} onClick={() => navigate(button.path)}>
+              {button.name}
+            </li>
+          ))}
           <div id="marker" ref={markerRef}></div>
         </ul>
       </nav>

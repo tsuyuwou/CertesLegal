@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 @Table(name = "job")
 public class Job {
 
-    public enum Type {
+    public enum JobType {
         FULLTIME("Full-time"),
         PARTTIME("Part-time"),
         INTERNSHIP("Internship"),
@@ -19,7 +19,7 @@ public class Job {
 
         private final String label;
 
-        private Type(String label) {
+        private JobType(String label) {
             this.label = label;
         }
 
@@ -27,11 +27,11 @@ public class Job {
             return label;
         }
 
-        public static Type fromLabel(String label) {
+        public static JobType fromLabel(String label) {
             if (label == null) {
                 return null;
             }
-            for (Type type : Type.values()) {
+            for (JobType type : JobType.values()) {
                 if (type.getLabel().equals(label)) {
                     return type;
                 }
@@ -103,14 +103,14 @@ public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "job_id")
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false)
     private String title;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Type type;
+    private JobType type;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

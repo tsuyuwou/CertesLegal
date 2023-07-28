@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 import com.certeslegal.backend.model.Job;
 import com.certeslegal.backend.model.Job.Domain;
 import com.certeslegal.backend.model.Job.Location;
-import com.certeslegal.backend.model.Job.Type;
+import com.certeslegal.backend.model.Job.JobType;
 
 @Repository
-public interface JobRepository extends JpaRepository<Job, Long> {
+public interface JobRepository extends JpaRepository<Job, Integer> {
 
     @Query("SELECT j FROM Job j WHERE (:type IS NULL OR j.type = :type) AND (:domain IS NULL OR j.domain = :domain) AND (:location IS NULL OR j.location = :location)")
-    List<Job> findByFilters(Type type, Domain domain, Location location);
+    List<Job> findByFilters(JobType type, Domain domain, Location location);
 }

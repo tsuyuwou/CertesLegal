@@ -9,7 +9,7 @@ const Error = () => {
 
   return (
     <>
-      <Header error={true}/>
+      <Header error={true} />
       <div style={{width: '95%', margin: 'auto', fontSize: '20px'}}>
         <p style={{textAlign: 'left'}}>
           <span style={{

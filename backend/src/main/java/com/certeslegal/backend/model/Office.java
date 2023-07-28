@@ -13,7 +13,7 @@ public class Office {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "office_id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "city_name", nullable = false)
     private String cityName;

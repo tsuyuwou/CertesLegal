@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.certeslegal.backend.model.Employee;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     
 }

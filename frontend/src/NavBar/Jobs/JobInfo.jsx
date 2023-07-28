@@ -1,18 +1,24 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import UserService from '../../services/UserService';
 import './JobInfo.css';
 
-const JobInfo = ({ job }) => {
+const JobInfo = ({ job, user }) => {
+
+  const navigate = useNavigate();
+  const handleNavigation = () => {
+    window.getSelection().removeAllRanges();
+    const popUp = document.getElementById('pop-up');
+    if (window.getComputedStyle(popUp).zIndex == 10) {
+      popUp.style.zIndex = -1;
+      popUp.firstChild.style.visibility = 'hidden';
+      document.getElementById('content').style.userSelect = 'auto';
+      document.body.style.overflowY = 'scroll';
+    }
+  };
 
   useEffect(() => {
-    window.onpopstate = () => {
-      const popUp = document.getElementById('pop-up');
-      if (window.getComputedStyle(popUp).zIndex == 10) {
-        popUp.style.zIndex = -1;
-        popUp.firstChild.style.display = 'none';
-        document.getElementById('content').style.userSelect = 'auto';
-        document.body.style.overflowY = 'scroll';
-      }
-    };
+    window.onpopstate = handleNavigation;
   }, []);
 
   useEffect(() => {
@@ -20,7 +26,7 @@ const JobInfo = ({ job }) => {
   }, [job]);
 
   return (
-    <div id="pop-up">
+    <div id="pop-up" onScroll={(e) => document.documentElement.scrollLeft = e.target.scrollLeft}>
       <div id="job-info">
         <div id="job-info-card">
           <div>
@@ -33,14 +39,7 @@ const JobInfo = ({ job }) => {
                 </div>
                 <div>
                   <svg
-                    xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16"
-                    onClick={() => {
-                      const popUp = document.getElementById('pop-up');
-                      popUp.style.zIndex = -1;
-                      popUp.firstChild.style.display = 'none';
-                      document.getElementById('content').style.userSelect = 'auto';
-                      document.body.style.overflowY = 'scroll';
-                    }}
+                    xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16" onClick={handleNavigation}
                   >
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                   </svg>
@@ -76,7 +75,19 @@ const JobInfo = ({ job }) => {
               </div>
             </div>
             <div id='description'></div>
-            <button onClick={() => window.getSelection().removeAllRanges()}>Apply Now</button>
+            <button onClick={() => {
+              handleNavigation();
+              if (user) {
+                UserService.applyToJob(user.id, job.id).then(res => {
+                  console.log(res);
+                }).catch(error => {
+                  console.error(error);
+                });
+              }
+              else {
+                navigate('/log-in');
+              }
+            }}>Apply Now</button>
           </div>
         </div>
       </div>

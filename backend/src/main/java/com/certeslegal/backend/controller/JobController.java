@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.certeslegal.backend.model.Job;
 import com.certeslegal.backend.model.Job.Domain;
 import com.certeslegal.backend.model.Job.Location;
-import com.certeslegal.backend.model.Job.Type;
+import com.certeslegal.backend.model.Job.JobType;
 import com.certeslegal.backend.repository.JobRepository;
 
 import lombok.Getter;
@@ -45,7 +45,7 @@ public class JobController {
         if (type == null && domain == null && location == null) {
             return jobRepository.findAll();
         }
-        return jobRepository.findByFilters(Type.fromLabel(type), Domain.fromLabel(domain), Location.fromLabel(location));
+        return jobRepository.findByFilters(JobType.fromLabel(type), Domain.fromLabel(domain), Location.fromLabel(location));
     }
 
     // get filters
@@ -53,7 +53,7 @@ public class JobController {
     @ResponseStatus(HttpStatus.OK)
     public Filters getFilters() {
         Filters filters = new Filters();
-        filters.setType(Arrays.stream(Type.values()).map(Type::getLabel).collect(Collectors.toList()));
+        filters.setType(Arrays.stream(JobType.values()).map(JobType::getLabel).collect(Collectors.toList()));
         filters.setDomain(Arrays.stream(Domain.values()).map(Domain::getLabel).collect(Collectors.toList()));
         filters.setLocation(Arrays.stream(Location.values()).map(Location::getLabel).collect(Collectors.toList()));
         return filters;
