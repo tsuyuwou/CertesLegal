@@ -3,6 +3,7 @@ package com.certeslegal.backend.model;
 import lombok.*;
 import jakarta.persistence.*;
 
+// a class that contains job details
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -10,6 +11,7 @@ import jakarta.persistence.*;
 @Table(name = "job")
 public class Job {
 
+    // enum for job type
     public enum JobType {
         FULLTIME("Full-time"),
         PARTTIME("Part-time"),
@@ -40,6 +42,7 @@ public class Job {
         }
     }
 
+    // enum for job domain
     public enum Domain {
         CIVIL_LAW("Civil Law"),
         ADMINISTRATIVE_LAW("Administrative Law"),
@@ -70,6 +73,7 @@ public class Job {
         }
     }
 
+    // enum for job location
     public enum Location {
         CHENNAI("Chennai, India"),
         NEW_DELHI("New Delhi, India"),
@@ -123,14 +127,17 @@ public class Job {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
 
+    // get job type enum label
     public String getType() {
         return type.getLabel();
     }
 
+    // get job domain enum label
     public String getDomain() {
         return domain.getLabel();
     }
 
+    // get job location enum label
     public String getLocation() {
         return location.getLabel();
     }

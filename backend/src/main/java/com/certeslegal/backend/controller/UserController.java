@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.certeslegal.backend.exception.AuthenticationException;
+import com.certeslegal.backend.exception.AccountAlreadyExistsException;
+import com.certeslegal.backend.exception.InvalidCredentialsException;
 import com.certeslegal.backend.model.User;
 import com.certeslegal.backend.repository.JobRepository;
 import com.certeslegal.backend.repository.UserRepository;
@@ -39,9 +40,14 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<String> handleAuthenticationException(AuthenticationException ex) {
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<String> handleException(InvalidCredentialsException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(AccountAlreadyExistsException.class)
+    public ResponseEntity<String> handleException(AccountAlreadyExistsException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
     
     // authenticate user
@@ -52,7 +58,7 @@ public class UserController {
         // log in
         if (user.getFirstName() == null) {
             if (existingUser == null || !passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
-                throw new AuthenticationException("Failed to Authenticate: Invalid credentials.");
+                throw new InvalidCredentialsException("Failed to Authenticate: Invalid credentials.");
             }
             else {
                 existingUser.setPassword(user.getPassword());
@@ -63,7 +69,7 @@ public class UserController {
         // register
         else {
             if (existingUser != null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("An account associated with that email address already exists.");
+                throw new AccountAlreadyExistsException("An account associated with that email address already exists.");
             }
             else {
                 String password = user.getPassword();
@@ -100,7 +106,7 @@ public class UserController {
                 user.setEmail(email);
             }
             else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("An account associated with that email address already exists.");
+                throw new AccountAlreadyExistsException("An account associated with that email address already exists.");
             }
         }
         else {

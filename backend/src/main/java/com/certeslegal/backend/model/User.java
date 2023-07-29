@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.util.Set;
 
+// a class that contains user details
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

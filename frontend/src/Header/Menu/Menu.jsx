@@ -16,10 +16,12 @@ const Menu = () => {
       content.style.transform = `translateY(-90px)`;
       navBar.style.zIndex = '-1';
     }
-    transform();
+    transform();  // hide menu bar when website loads
 
     menu.addEventListener('click', function() {
       this.classList.toggle('open');
+
+      // show menu bar
       if (this.classList.contains('open')) {
         navBar.style.transition = 'transform 0.5s';
         starsContainer.style.transition = 'transform 0.5s';
@@ -31,17 +33,10 @@ const Menu = () => {
           navBar.style.zIndex = '0';
         }, 500);
       }
+
+      // hide menu bar
       else {
         clearTimeout(timeoutID);
-        transform();
-      }
-    });
-
-    window.addEventListener('resize', function() {
-      if (!menu.classList.contains('open')) {
-        starsContainer.style.transition = 'none';
-        content.style.transition = 'none';
-        navBar.style.transition = 'none';
         transform();
       }
     });

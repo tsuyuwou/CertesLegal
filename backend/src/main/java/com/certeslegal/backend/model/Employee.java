@@ -3,13 +3,14 @@ package com.certeslegal.backend.model;
 import lombok.*;
 import jakarta.persistence.*;
 
+// a class that contains employee details
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "employee")
 public class Employee {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id")

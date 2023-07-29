@@ -30,3 +30,8 @@ INSERT INTO job (title, type, domain, location, description)
 VALUES ('Government Relations Specialist', 'FULLTIME', 'ADMINISTRATIVE_LAW', 'NEW_DELHI', 'This is a dummy job description.');
 INSERT INTO job (title, type, domain, location, description)
 VALUES ('Senior Vice President and Managing Partner of Litigation and Dispute Resolution Department', 'FULLTIME', 'EXECUTIVE', 'CHENNAI', 'This is a dummy job description.');
+
+INSERT INTO user (first_name, last_name, email, password)
+VALUES ('Timmy', 'Susai Rajan', 'example@gmail.com', 'oooooooo0');
+
+INSERT INTO users_jobs (user_id, job_id) VALUES (1, 3);

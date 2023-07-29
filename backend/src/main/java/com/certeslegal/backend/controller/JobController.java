@@ -59,6 +59,7 @@ public class JobController {
         return filters;
     }
 
+    // a class to contain all filters
     @Getter
     @Setter
     private static class Filters {

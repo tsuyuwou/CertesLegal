@@ -34,9 +34,6 @@ const NavBar = ({ user }) => {
     const content = document.querySelector('#content');
     const menu = document.querySelector('.menu');
     if (menu.classList.contains('open')) {
-      starsContainer.style.transition = 'transform 0.5s';
-      content.style.transition = 'transform 0.5s';
-      navBar.style.transition = 'transform 0.5s';
       menu.classList.remove('open');
       navBar.style.transform = `translateY(-90px)`;
       starsContainer.style.transform = `translateY(-90px)`;

@@ -3,6 +3,7 @@ package com.certeslegal.backend.model;
 import lombok.*;
 import jakarta.persistence.*;
 
+// a class that contains details about office buildings
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
