@@ -1,5 +1,9 @@
 # Certes Legal
 
+## Website Overview
+
+This is a website for a law firm based in India. The website contains a Home page describing the law firm's history, legacy, and services offered, an Our Teams page that lists distinguished individuals who bring a wealth of experience, expertise, and leadership to the firm, a Contact Us page that sends an email to the law firm’s public email account with messages from users, a Jobs page (with search filters) that lists open positions at the firm, a Log In page that authenticates users, and a My Account page to manage user account information.
+
 ## Video Walkthrough
 
 Here's a walkthrough of the implemented features:
