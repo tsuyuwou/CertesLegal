@@ -32,8 +32,10 @@ const Account = ({ user, setUser, setAppliedJobs }) => {
               </h2>
               <div className="group rounded-md h-[44px] -translate-y-[2px] flex-grow" onClick={e => {
                 e.currentTarget.firstChild.blur();
-                setUser(null);
-                setAppliedJobs([]);
+                setTimeout(() => {
+                  setUser(null);
+                  setAppliedJobs([]);
+                }, 200);
               }}>
                 <button className="w-full h-full bg-blue-600 text-white rounded-md outline-none border-none group-hover:bg-blue-700 transition-transform focus:scale-90 select-none cursor-pointer text-2xl">
                   Log Out
@@ -287,12 +289,14 @@ const Account = ({ user, setUser, setAppliedJobs }) => {
             </div>
             <div className="group rounded-md" onClick={e => {
               e.currentTarget.firstChild.blur();
-              UserService.deleteUser(user.id).then(() => {
-                setUser(null);
-                setAppliedJobs([]);
-              }).catch(error => {
-                console.error(error);
-              });
+              setTimeout(() => {
+                UserService.deleteUser(user.id).then(() => {
+                  setUser(null);
+                  setAppliedJobs([]);
+                }).catch(error => {
+                  console.error(error);
+                });
+              }, 200);
             }}>
               <button className="w-full bg-blue-600 py-3 text-white rounded-md outline-none border-none group-hover:bg-blue-700 transition-transform focus:scale-90 select-none cursor-pointer text-2xl">
                 Delete Account

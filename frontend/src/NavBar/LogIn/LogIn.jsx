@@ -67,16 +67,18 @@ const LogIn = ({ user, setUser, setAppliedJobs }) => {
             </h2>
             <form onSubmit={e => {
               e.preventDefault();
-              UserService.authenticate({
-                ...(firstName && {firstName}), ...(lastName && {lastName}), email, password
-              }).then(({ data }) => {
-                clearForm();
-                delete data.user.jobs;
-                setUser(data.user);
-                setAppliedJobs(data.appliedJobs);
-              }).catch(error => {
-                console.error(error);
-              });
+              setTimeout(() => {
+                UserService.authenticate({
+                  ...(firstName && {firstName}), ...(lastName && {lastName}), email, password
+                }).then(({ data }) => {
+                  clearForm();
+                  delete data.user.jobs;
+                  setUser(data.user);
+                  setAppliedJobs(data.appliedJobs);
+                }).catch(error => {
+                  console.error(error);
+                });
+              }, 200);
             }}>
               <div className="flex flex-col gap-4 mb-8">
                 {variant === 'Sign Up' && (
