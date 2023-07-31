@@ -7,14 +7,14 @@ import './Jobs.css';
 const Arrow = () => {
   return (
     <div>
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-down" viewBox="0 0 16 16">
-        <path fillRule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-menu-down" viewBox="0 0 16 16">
+        <path d="M7.646.146a.5.5 0 0 1 .708 0L10.207 2H14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h3.793L7.646.146zM1 7v3h14V7H1zm14-1V4a1 1 0 0 0-1-1h-3.793a1 1 0 0 1-.707-.293L8 1.207l-1.5 1.5A1 1 0 0 1 5.793 3H2a1 1 0 0 0-1 1v2h14zm0 5H1v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2zM2 4.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
       </svg>
     </div>
   );
 };
 
-const Jobs = ({ setJob, user }) => {
+const Jobs = ({ setJob, user, appliedJobs, setAppliedJobs }) => {
 
   const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
@@ -64,9 +64,8 @@ const Jobs = ({ setJob, user }) => {
             {Object.entries(filters).map(([filter, options]) => {
               return (
                 <li key={filter} onMouseEnter={e => e.currentTarget.querySelector('.drop').scrollTop = 0}>
-                  {filter.replace(/\b\w/g, match => match.toUpperCase())}
-                  <hr style={{ border: 'none', height: '2px', backgroundColor: 'white' }} />
-                  {selections[filter]}
+                  <div>{filter.replace(/\b\w/g, match => match.toUpperCase())}</div>
+                  <div style={{marginTop: '2px'}}>{selections[filter]}</div>
                   <ul className="drop">
                     <div>
                       {options.map(option => {
@@ -88,7 +87,7 @@ const Jobs = ({ setJob, user }) => {
             <Arrow />
           </ul>
           <div>
-            <div style={{height: '77px', borderBottom: '2px solid white'}} onClick={() => {
+            <div style={{height: '77px', marginBottom: '2px'}} onClick={() => {
               JobService.getJobs({}).then(res => {
                 setJobs(res.data);
               }).catch(error => {
@@ -137,7 +136,7 @@ const Jobs = ({ setJob, user }) => {
                     {job.domain}
                   </div>
                   <br />
-                  <div>
+                  <div style={{marginBottom: '3px'}}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-geo-alt" viewBox="0 0 16 16">
                       <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
                       <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -145,29 +144,47 @@ const Jobs = ({ setJob, user }) => {
                     {job.location}
                   </div>
                   <div>
-                    <button onClick={() => {
+                    <div onClick={e => {
+                      e.currentTarget.firstChild.blur();
                       setJob(jobs[idx]);
-                      const popUp = document.getElementById('pop-up');
-                      popUp.style.zIndex = 10;
-                      const jobInfo = popUp.firstChild;
-                      jobInfo.style.visibility = 'visible';
-                      setTimeout(() => jobInfo.style.height = `max(calc(${getComputedStyle(jobInfo.firstChild).height} + 25px), 100vh)`, 0);
-                      window.getSelection().removeAllRanges();
-                      document.getElementById('content').style.userSelect = 'none';
-                      document.body.style.overflowY = 'hidden';
-                    }}>Learn More</button>
-                    <button onClick={() => {
+                      setTimeout(() => {
+                        const popUp = document.getElementById('pop-up');
+                        popUp.style.zIndex = 10;
+                        const jobInfo = popUp.firstChild;
+                        jobInfo.style.visibility = 'visible';
+                        jobInfo.style.height = `max(calc(${getComputedStyle(jobInfo.firstChild).height} + 25px), 100vh)`;
+                        const content = document.getElementById('content');
+                        content.querySelectorAll('button').forEach(button => {
+                          button.tabIndex = -1;
+                        });
+                        content.style.userSelect = 'none';
+                        document.body.style.overflowY = 'hidden';
+                      }, 150);
+                    }}>
+                      <button>Learn More</button>
+                    </div>
+                    <div onClick={e => {
+                      e.currentTarget.firstChild.blur();
                       if (user) {
-                        UserService.applyToJob(user.id, job.id).then(res => {
+                        const promise = appliedJobs.includes(job.id) ?
+                          UserService.withdrawApplication(user.id, job.id) : 
+                          UserService.applyToJob(user.id, job.id);
+                        promise.then(res => {
+                          setAppliedJobs(res.data);
                           console.log(res);
-                        }).catch(error => {
+                        })
+                        .catch(error => {
                           console.error(error);
                         });
                       }
                       else {
-                        navigate('/log-in');
+                        setTimeout(() => navigate('/log-in'), 150);
                       }
-                    }}>Apply Now</button>
+                    }}>
+                      <button>
+                        {appliedJobs.includes(job.id) ? "Withdraw Application" : "Apply Now"}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

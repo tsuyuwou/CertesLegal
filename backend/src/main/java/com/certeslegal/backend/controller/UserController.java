@@ -1,6 +1,9 @@
 package com.certeslegal.backend.controller;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.certeslegal.backend.exception.AccountAlreadyExistsException;
 import com.certeslegal.backend.exception.InvalidCredentialsException;
+import com.certeslegal.backend.model.Job;
 import com.certeslegal.backend.model.User;
 import com.certeslegal.backend.repository.JobRepository;
 import com.certeslegal.backend.repository.UserRepository;
@@ -52,7 +56,7 @@ public class UserController {
     
     // authenticate user
     @PostMapping("/user/auth")
-    public ResponseEntity<?> authenticate(@RequestBody User user) {
+    public ResponseEntity<Map<String, Object>> authenticate(@RequestBody User user) {
         User existingUser = userRepository.findByEmail(user.getEmail());
 
         // log in
@@ -62,10 +66,14 @@ public class UserController {
             }
             else {
                 existingUser.setPassword(user.getPassword());
-                return ResponseEntity.ok(existingUser);
+                Map<String, Object> response = new HashMap<>();
+                response.put("appliedJobs", existingUser.getJobs().stream().map(Job::getId).collect(Collectors.toSet()));
+                existingUser.setJobs(null);
+                response.put("user", existingUser);
+                return ResponseEntity.ok(response);
             }
         }
-        
+
         // register
         else {
             if (existingUser != null) {
@@ -76,18 +84,32 @@ public class UserController {
                 user.setPassword(passwordEncoder.encode(password));
                 user = userRepository.save(user);
                 user.setPassword(password);
-                return ResponseEntity.ok(user);
+                Map<String, Object> response = new HashMap<>();
+                response.put("user", user);
+                response.put("appliedJobs", new Integer[0]);
+                return ResponseEntity.ok(response);
             }
         }
     }
 
     // apply to a job
-    @PostMapping("/user/{id}")
+    @PostMapping("/user/{userId}/job/{jobId}")
     @ResponseStatus(HttpStatus.OK)
-    public void applyToJob(@PathVariable Integer id, @RequestBody Map<String, Integer> data) {
-        User user = userRepository.getReferenceById(id);
-        user.getJobs().add(jobRepository.getReferenceById(data.get("jobId")));
+    public Set<Integer> applyToJob(@PathVariable Integer userId, @PathVariable Integer jobId) {
+        User user = userRepository.getReferenceById(userId);
+        user.getJobs().add(jobRepository.getReferenceById(jobId));
         userRepository.save(user);
+        return user.getJobs().stream().map(Job::getId).collect(Collectors.toSet());
+    }
+
+    // withdraw a job application
+    @DeleteMapping("/user/{userId}/job/{jobId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Set<Integer> withdrawApplication(@PathVariable Integer userId, @PathVariable Integer jobId) {
+        User user = userRepository.getReferenceById(userId);
+        user.getJobs().remove(jobRepository.getReferenceById(jobId));
+        userRepository.save(user);
+        return user.getJobs().stream().map(Job::getId).collect(Collectors.toSet());
     }
 
     // update account

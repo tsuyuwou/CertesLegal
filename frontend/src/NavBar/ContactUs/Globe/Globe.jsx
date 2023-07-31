@@ -14,7 +14,7 @@ const Globe = () => {
 
   useEffect(() => {
     const container = document.getElementById("globeContainer");
-    let aspect = Math.max(window.innerWidth, 500) / Math.max(window.innerHeight - 89.5, 881.5) * (window.innerWidth > 1200 ? 0.5 : 2);
+    let aspect = Math.max(window.innerWidth, 500) / Math.max(window.innerHeight - 89.5, 875.5) * (window.innerWidth > 1200 ? 0.5 : 2);
     let width = container.clientWidth;
 
     let renderer = new THREE.WebGLRenderer({
@@ -42,7 +42,7 @@ const Globe = () => {
     initPos = new THREE.Vector3().setFromSphericalCoords(1, convertLat(India.lat), convertLon(India.lon)).setLength(cameraDistance(container.clientWidth));
 
     const handleResize = () => {
-      aspect = Math.max(window.innerWidth, 500) / Math.max(window.innerHeight - 89.5, 881.5) * (window.innerWidth > 1200 ? 0.5 : 2);
+      aspect = Math.max(window.innerWidth, 500) / Math.max(window.innerHeight - 89.5, 875.5) * (window.innerWidth > 1200 ? 0.5 : 2);
       camera.aspect = aspect;
       initPos.setLength(cameraDistance(container.clientWidth));
       camera.position.setLength(cameraDistance(container.clientWidth));

@@ -3,7 +3,7 @@ import Header from './Header/Header.jsx';
 import NavBar from './NavBar/NavBar.jsx';
 import JobInfo from './NavBar/Jobs/JobInfo.jsx';
 
-const SharedLayout = ({ job, user }) => {
+const SharedLayout = ({ job, user, appliedJobs, setAppliedJobs }) => {
 
   return (
     <>
@@ -12,7 +12,7 @@ const SharedLayout = ({ job, user }) => {
       <div id="content">
         <Outlet />
       </div>
-      <JobInfo job={job} user={user} />
+      <JobInfo job={job} user={user} appliedJobs={appliedJobs} setAppliedJobs={setAppliedJobs} />
     </>
   );
 };

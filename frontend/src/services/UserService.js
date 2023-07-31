@@ -9,9 +9,13 @@ class UserService {
     }
 
     applyToJob(userId, jobId) {
-        return axios.post(USER_API_BASE_URL + userId, { jobId });
+        return axios.post(USER_API_BASE_URL + userId + '/job/' + jobId);
     }
 
+    withdrawApplication(userId, jobId) {
+        return axios.delete(USER_API_BASE_URL + userId + '/job/' + jobId);
+    }
+    
     updateUser(id, data) {
         return axios.patch(USER_API_BASE_URL + id, data);
     }

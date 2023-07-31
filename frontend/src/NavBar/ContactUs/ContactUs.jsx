@@ -37,7 +37,7 @@ const Stars = () => {
 const ContactUs = () => {
 
   const baseURL = import.meta.env.BASE_URL;
-  let aspect = Math.max(window.innerWidth, 500) / Math.max(window.innerHeight - 89.5, 881.5);
+  let aspect = Math.max(window.innerWidth, 500) / Math.max(window.innerHeight - 89.5, 875.5);
   const [showCanvas, setShowCanvas] = useState(false);
   const [tabIndex, setTabIndex] = useState();
 
@@ -49,7 +49,7 @@ const ContactUs = () => {
 
     const handleResize = () => {
       if (location.pathname === `${baseURL}contact-us`) {
-        aspect = Math.max(window.innerWidth, 500) / Math.max(window.innerHeight - 89.5, 881.5);
+        aspect = Math.max(window.innerWidth, 500) / Math.max(window.innerHeight - 89.5, 875.5);
         starsContainer.style.height = `${starsContainer.clientWidth / aspect}px`;
         contactContainer.style.height = `${starsContainer.clientHeight}px`;
         contactContainer.style.top = `${-starsContainer.clientHeight}px`;

@@ -3,22 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import UserService from '../../services/UserService';
 import './JobInfo.css';
 
-const JobInfo = ({ job, user }) => {
+const JobInfo = ({ job, user, appliedJobs, setAppliedJobs }) => {
 
   const navigate = useNavigate();
-  const handleNavigation = () => {
-    window.getSelection().removeAllRanges();
-    const popUp = document.getElementById('pop-up');
-    if (window.getComputedStyle(popUp).zIndex == 10) {
-      popUp.style.zIndex = -1;
-      popUp.firstChild.style.visibility = 'hidden';
-      document.getElementById('content').style.userSelect = 'auto';
-      document.body.style.overflowY = 'scroll';
-    }
-  };
 
   useEffect(() => {
-    window.onpopstate = handleNavigation;
+    window.onpopstate = () => {
+      const popUp = document.getElementById('pop-up');
+      if (window.getComputedStyle(popUp).zIndex == 10) {
+        popUp.style.zIndex = -1;
+        popUp.firstChild.style.visibility = 'hidden';
+        document.getElementById('content').style.userSelect = 'auto';
+        document.body.style.overflowY = 'scroll';
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -38,11 +36,27 @@ const JobInfo = ({ job, user }) => {
                   </div>
                 </div>
                 <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16" onClick={handleNavigation}
-                  >
-                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                  </svg>
+                  <div onClick={e => {
+                    window.getSelection().removeAllRanges()
+                    e.currentTarget.firstChild.blur();
+                    setTimeout(() => {
+                      const popUp = document.getElementById('pop-up');
+                      popUp.style.zIndex = -1;
+                      popUp.firstChild.style.visibility = 'hidden';
+                      const content = document.getElementById('content');
+                      content.querySelectorAll('button').forEach(button => {
+                        button.tabIndex = 1;
+                      });
+                      content.style.userSelect = 'auto';
+                      document.body.style.overflowY = 'scroll';
+                    }, 200);
+                  }}>
+                    <button>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="23.5" height="23.5" fill="currentColor" className="bi bi-x" viewBox="1.5 1.5 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
               <div onClick={() => window.getSelection().removeAllRanges()}>
@@ -75,19 +89,29 @@ const JobInfo = ({ job, user }) => {
               </div>
             </div>
             <div id='description'></div>
-            <button onClick={() => {
-              handleNavigation();
+            <div onClick={e => {
+              e.currentTarget.firstChild.blur();
+              window.getSelection().removeAllRanges();
               if (user) {
-                UserService.applyToJob(user.id, job.id).then(res => {
+                const promise = appliedJobs.includes(job.id) ?
+                  UserService.withdrawApplication(user.id, job.id) : 
+                  UserService.applyToJob(user.id, job.id);
+                promise.then(res => {
+                  setAppliedJobs(res.data);
                   console.log(res);
-                }).catch(error => {
+                })
+                .catch(error => {
                   console.error(error);
                 });
               }
               else {
-                navigate('/log-in');
+                setTimeout(() => navigate('/log-in'), 150);
               }
-            }}>Apply Now</button>
+            }}>
+              <button>
+                {appliedJobs.includes(job.id) ? "Withdraw Application" : "Apply Now"}
+              </button>
+            </div>
           </div>
         </div>
       </div>

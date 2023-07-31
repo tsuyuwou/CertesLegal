@@ -1,6 +1,6 @@
-const Input = ({ id, onChange, value, placeholder, type, pattern, maxLength, isRequired, autoFocus }) => {
+const Input = ({ id, type, value, onChange, placeholder, pattern, maxLength, isRequired, autoFocus }) => {
   return (
-    <div className="flex">
+    <div className="flex flex-grow">
       <input
         id={id}
         type={type}
@@ -11,10 +11,11 @@ const Input = ({ id, onChange, value, placeholder, type, pattern, maxLength, isR
         maxLength={maxLength}
         required={isRequired}
         autoFocus={autoFocus}
+        style={{fontFamily: 'Space Mono'}}
         className="
           block
           rounded-md
-          px-6
+          px-3
           py-3
           w-full
           text-md
@@ -24,7 +25,6 @@ const Input = ({ id, onChange, value, placeholder, type, pattern, maxLength, isR
           outline-none
           placeholder:select-none
         "
-        style={{fontFamily: 'Space Mono'}}
       />
     </div>
   );

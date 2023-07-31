@@ -5,7 +5,7 @@
 @media (max-width: 1200px) {
     #globeContainer {
       width: 100%;
-      height: max(calc((100vh - 90px) / 2), 440.5px);
+      height: max(calc((100vh - 90px) / 2), 437.5px);
     }
 }
 
