@@ -1,8 +1,8 @@
-const Input = ({ id, type, value, onChange, placeholder, pattern, maxLength, isRequired, autoFocus }) => {
+const Input = ({ name, type, value, onChange, placeholder, pattern, maxLength, isRequired, autoFocus }) => {
   return (
     <div className="flex flex-grow">
       <input
-        id={id}
+        name={name}
         type={type}
         value={value}
         onChange={onChange}

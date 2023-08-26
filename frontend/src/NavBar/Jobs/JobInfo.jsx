@@ -28,36 +28,8 @@ const JobInfo = ({ job, user, appliedJobs, setAppliedJobs }) => {
       <div id="job-info">
         <div id="job-info-card">
           <div>
-            <div>
               <div>
-                <div>
-                  <div>
-                    {job.title}
-                  </div>
-                </div>
-                <div>
-                  <div onClick={e => {
-                    window.getSelection().removeAllRanges()
-                    e.currentTarget.firstChild.blur();
-                    setTimeout(() => {
-                      const popUp = document.getElementById('pop-up');
-                      popUp.style.zIndex = -1;
-                      popUp.firstChild.style.visibility = 'hidden';
-                      const content = document.getElementById('content');
-                      content.querySelectorAll('button').forEach(button => {
-                        button.tabIndex = 1;
-                      });
-                      content.style.userSelect = 'auto';
-                      document.body.style.overflowY = 'scroll';
-                    }, 200);
-                  }}>
-                    <button>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="23.5" height="23.5" fill="currentColor" className="bi bi-x" viewBox="1.5 1.5 16 16">
-                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
+                {job.title}
               </div>
               <div onClick={() => window.getSelection().removeAllRanges()}>
                 <div>
@@ -87,30 +59,53 @@ const JobInfo = ({ job, user, appliedJobs, setAppliedJobs }) => {
                   </div>
                 </div>
               </div>
-            </div>
             <div id='description'></div>
-            <div onClick={e => {
-              e.currentTarget.firstChild.blur();
-              window.getSelection().removeAllRanges();
-              if (user) {
-                const promise = appliedJobs.includes(job.id) ?
-                  UserService.withdrawApplication(user.id, job.id) : 
-                  UserService.applyToJob(user.id, job.id);
-                promise.then(res => {
-                  setAppliedJobs(res.data);
-                  console.log(res);
-                })
-                .catch(error => {
-                  console.error(error);
-                });
-              }
-              else {
-                setTimeout(() => navigate('/log-in'), 150);
-              }
-            }}>
-              <button>
-                {appliedJobs.includes(job.id) ? "Withdraw Application" : "Apply Now"}
-              </button>
+            <div>
+              <div onClick={e => {
+                window.getSelection().removeAllRanges()
+                e.currentTarget.firstChild.blur();
+                setTimeout(() => {
+                  const popUp = document.getElementById('pop-up');
+                  popUp.style.zIndex = -1;
+                  popUp.firstChild.style.visibility = 'hidden';
+                  const content = document.getElementById('content');
+                  content.querySelectorAll('button').forEach(button => {
+                    button.tabIndex = 1;
+                  });
+                  content.style.userSelect = 'auto';
+                  document.body.style.overflowY = 'scroll';
+                }, 200);
+              }}>
+                <button>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                  </svg>
+                  <span>Close</span>
+                </button>
+              </div>
+              <div onClick={e => {
+                e.currentTarget.firstChild.blur();
+                window.getSelection().removeAllRanges();
+                if (user) {
+                  const promise = appliedJobs.includes(job.id) ?
+                    UserService.withdrawApplication(user.id, job.id) : 
+                    UserService.applyToJob(user.id, job.id);
+                  promise.then(res => {
+                    setAppliedJobs(res.data);
+                    console.log(res);
+                  })
+                  .catch(error => {
+                    console.error(error);
+                  });
+                }
+                else {
+                  setTimeout(() => navigate('/log-in'), 150);
+                }
+              }}>
+                <button>
+                  <span>{appliedJobs.includes(job.id) ? "Withdraw Application" : "Apply Now"}</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -12,6 +12,7 @@ const LogIn = ({ user, setUser, setAppliedJobs }) => {
   const [password, setPassword] = useState('');
   const [variant, setVariant] = useState('Sign In');
   const [see, setSee] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const clearForm = () => {
@@ -19,6 +20,7 @@ const LogIn = ({ user, setUser, setAppliedJobs }) => {
     setLastName('');
     setEmail('');
     setPassword('');
+    setError('');
   };
 
   const toggleVariant = useCallback(e => {
@@ -75,8 +77,9 @@ const LogIn = ({ user, setUser, setAppliedJobs }) => {
                   delete data.user.jobs;
                   setUser(data.user);
                   setAppliedJobs(data.appliedJobs);
-                }).catch(error => {
-                  console.error(error);
+                }).catch(err => {
+                  setError(err.response.data);
+                  console.error(err);
                 });
               }, 200);
             }}>
@@ -100,7 +103,7 @@ const LogIn = ({ user, setUser, setAppliedJobs }) => {
                   </div>
                 )}
                 <Input
-                  id="email"
+                  name="email"
                   onChange={e => setEmail(e.target.value)}
                   value={email}
                   placeholder=" Email"
@@ -141,6 +144,15 @@ const LogIn = ({ user, setUser, setAppliedJobs }) => {
                   </div>
                 </div>
               </div>
+              {error && <div className="mb-8 text-white py-3 px-3.5 bg-red-600 rounded-md flex gap-4 h-[48px] select-none items-center">
+                <div>
+                  <svg className="-translate-x-[2.75px] bi bi-person-exclamation" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm.256 7a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
+                    <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1.5a.5.5 0 0 0 1 0V11a.5.5 0 0 0-.5-.5Zm0 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z"/>
+                  </svg>
+                </div>
+                <div>{error}</div>
+              </div>}
               <div className="group rounded-md" onClick={e => {
                 window.getSelection().removeAllRanges();
                 e.currentTarget.firstChild.blur();
@@ -167,7 +179,7 @@ const LogIn = ({ user, setUser, setAppliedJobs }) => {
                 {variant === 'Sign In' ? 'New to our services?' : 'Already have an account?'} &nbsp;
               </p>
               <div className="group flex-grow rounded-md" onClick={toggleVariant}>
-                <button className="bg-blue-600 text-white rounded-md outline-none border-none group-hover:bg-blue-700 transition-transform focus:scale-90 select-none cursor-pointer text-base w-full pb-1">
+                <button className="bg-blue-600 text-white rounded-md outline-none border-none group-hover:bg-blue-700 transition-transform focus:scale-90 select-none cursor-pointer text-base w-full py-1">
                   {variant === 'Sign In' ? (
                     <div className="flex justify-center items-center">
                       <b>Get Started</b> &nbsp;

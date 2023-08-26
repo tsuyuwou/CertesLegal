@@ -1,10 +1,9 @@
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import './Form.css';
 
 const Form = ({ tabIndex }) => {
-  
-  const formRef = useRef();
+
   const [form, setForm] = useState({firstname: "", lastname: "", email: "", phone: "", message: ""});
 
   const handleChange = (e) => {
@@ -16,7 +15,7 @@ const Form = ({ tabIndex }) => {
     e.preventDefault();
     const sendButton = document.querySelector("#sendButton");
     sendButton.disabled = true;
-
+    
     emailjs
       .send(
         import.meta.env.VITE_LAWAII_EMAILJS_SERVICE_ID,
@@ -71,7 +70,7 @@ const Form = ({ tabIndex }) => {
     <div id="contactForm">
       <div>
         <h1 style={{marginTop: 0, marginBottom: '10px', textAlign: 'center'}}>Contact Us</h1>
-        <form ref={formRef} onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div>
             <button type='reset' id="clearButton" tabIndex={tabIndex} onClick={handleReset}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24.5" height="24.5" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">

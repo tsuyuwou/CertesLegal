@@ -62,7 +62,7 @@ public class UserController {
         // log in
         if (user.getFirstName() == null) {
             if (existingUser == null || !passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
-                throw new InvalidCredentialsException("Failed to Authenticate: Invalid credentials.");
+                throw new InvalidCredentialsException("Invalid email or password.");
             }
             else {
                 existingUser.setPassword(user.getPassword());
@@ -77,7 +77,7 @@ public class UserController {
         // register
         else {
             if (existingUser != null) {
-                throw new AccountAlreadyExistsException("An account associated with that email address already exists.");
+                throw new AccountAlreadyExistsException("An account with that email already exists.");
             }
             else {
                 String password = user.getPassword();

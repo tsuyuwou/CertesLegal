@@ -7,6 +7,10 @@
     color: white;
 }
 
+#contactForm h1 {
+    user-select: none;
+}
+
 #contactForm > div {
     background-color: rgba(0, 0, 0, 0.6);
     font-size: 21.5px;
@@ -63,6 +67,7 @@
 #contactForm input::placeholder, 
 #contactForm textarea::placeholder {
     color: rgb(76, 153, 255);
+    user-select: none;
 }
 
 #contactForm input:-webkit-autofill, 
